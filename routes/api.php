@@ -21,3 +21,8 @@ Route::get('basicusers/{id}', 'BasicUserController@show');
 Route::post('basicusers', 'BasicUserController@store');
 Route::put('basicusers/{basicUser}', 'BasicUserController@update');
 Route::delete('basicusers/{basicUser}', 'BasicUserController@delete');
+/*
+ *verify sms code
+*/
+Route::post('verifysms', 'SmsVerifyController@verify');
+
