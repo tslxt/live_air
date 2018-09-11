@@ -16,13 +16,21 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('basicusers', 'BasicUserController@index');
-Route::get('basicusers/{id}', 'BasicUserController@show');
-Route::post('basicusers', 'BasicUserController@store');
-Route::put('basicusers/{basicUser}', 'BasicUserController@update');
-Route::delete('basicusers/{basicUser}', 'BasicUserController@delete');
 /*
  *verify sms code
 */
 Route::post('verifysms', 'SmsVerifyController@verify');
+/*
+ *for password
+*/
+
+Route::post('validatePhone', 'UsersController@validatePhone');
+Route::post('validateCode', 'UsersController@validateCode');
+Route::post('loginCode', 'UsersController@loginCode');
+
+Route::group(['middleware' => 'auth:api'], function(){
+	Route::post('details', 'UsersController@details');
+});
+
+// Route::middleware('auth:api')->get('details', 'UsersController@details');
 
