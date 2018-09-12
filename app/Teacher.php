@@ -3,8 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Teacher extends Model
 {
-    //
+	use Notifiable;
+
+    protected $fillable = [
+        'name',
+        'user_id',
+    ];
 }

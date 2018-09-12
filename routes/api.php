@@ -32,5 +32,23 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('details', 'UsersController@details');
 });
 
-// Route::middleware('auth:api')->get('details', 'UsersController@details');
+Route::post('teachers', 'TeachersController@store')->middleware('auth:api');
+Route::post('show', 'TeachersController@show')->middleware('auth:api');
+/*
+ * for course
+*/
+Route::get('courses', 'CoursesController@index');
+Route::get('courses/{id}', 'CoursesController@show');
+Route::get('courses/{course}/lessons', 'CoursesController@lessons');
+Route::post('courses', 'CoursesController@store');
+Route::put('courses/{course}', 'CoursesController@update');
+Route::delete('courses/{course}', 'CoursesController@delete');
 
+/*
+ * for lesson
+*/
+Route::get('lessons', 'LessonsController@index');
+Route::get('lessons/{id}', 'LessonsController@show');
+Route::post('lessons', 'LessonsController@store');
+Route::put('lessons/{lesson}', 'LessonsController@update');
+Route::delete('lessons/{lesson}', 'LessonsController@delete');

@@ -67,5 +67,11 @@ class UsersController extends Controller
 
     }
 
+    public function details()
+    {
+        $user = Auth::user(); 
+        return response()->json($user, 200); 
+    }
+
 
 }
