@@ -39,12 +39,4 @@ class TeachersController extends Controller
         return response()->json($teacher, 201);
     }
 
-    public function addTeacher(Request $request)
-    {
-        $teacher = new Teacher();
-        $teacher->name = $request->input('name');
-        $teacher->user_id = 1;
-        $teacher->save();
-        return response()->json($teacher, 201);
-    }
 }

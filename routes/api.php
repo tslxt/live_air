@@ -31,7 +31,9 @@ Route::post('loginCode', 'UsersController@loginCode');
 Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('details', 'UsersController@details');
 });
-
+/*
+ * for teacher
+ */
 Route::post('teachers', 'TeachersController@store')->middleware('auth:api');
 Route::post('show', 'TeachersController@show')->middleware('auth:api');
 /*
