@@ -15,6 +15,8 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('teacher_id')->unsigned();
+            $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->string('title');
             $table->string('subheading')->nullable();
             $table->string('subject')->nullable();

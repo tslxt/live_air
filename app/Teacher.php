@@ -12,12 +12,16 @@ class Teacher extends Model
 	protected $table = 'teachers';
 
     protected $fillable = [
-        'name',
         'user_id',
     ];
 
 	public function user() 
 	{
 		return $this->belongsTo('App\User', 'user_id', 'id');
+	}
+
+	public function courses()
+	{
+		return $this->hasMany('App\Course', 'teacher_id', 'id');
 	}
 }

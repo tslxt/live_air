@@ -16,8 +16,18 @@ class Course extends Model
     	'description',
     ];
 
-    public function hasManyLessons()
+    public function lessons()
     {
     	return $this->hasMany('App\Lesson', 'course_id', 'id');
 	}
+
+    public function teacher()
+    {
+        return $this->belongsTo('App\Teacher', 'teacher_id', 'id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany('App\Student', 'classes', 'course_id', 'student_id');
+    }
 }
