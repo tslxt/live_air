@@ -54,3 +54,10 @@ Route::get('lessons/{id}', 'LessonsController@show');
 Route::post('lessons', 'LessonsController@store');
 Route::put('lessons/{lesson}', 'LessonsController@update');
 Route::delete('lessons/{lesson}', 'LessonsController@delete');
+/*
+* for image upload
+*/
+Route::post('images/upload', 'UserImageController@update');
+Route::post('images/bitmap', 'UserImageController@bitmap');
+Route::post('images/vision', 'UserImageController@vision');
+Route::get('images/env', 'UserImageController@env');
