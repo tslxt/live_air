@@ -67,6 +67,13 @@ class UsersController extends Controller
 
     }
 
+    public function update(Request $request, User $user)
+    {
+        $user = Auth::user();
+        $user->update($request->all());
+        return response()->json($user, 200);
+    }
+
     public function details()
     {
         $user = Auth::user(); 

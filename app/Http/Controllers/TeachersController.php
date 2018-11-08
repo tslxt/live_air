@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Teacher;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use App\Enums\UserType;
 
 class TeachersController extends Controller
 {
@@ -37,6 +39,18 @@ class TeachersController extends Controller
         $teacher->user_id = $user->id;
         $teacher->save();
         return response()->json($teacher, 201);
+    }
+
+    public function register(Request $request)
+    {
+        $user = Auth::user();
+        $user->update($request->all());
+        $teacher = new Teacher();
+        $user->role = UserType::Teacher;
+        $user->save();
+        $teacher->user_id = $user->id;
+        $teacher->save();
+        return response()->json($teacher, 200);
     }
 
 }
