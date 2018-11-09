@@ -24,4 +24,9 @@ class Teacher extends Model
 	{
 		return $this->hasMany('App\Course', 'teacher_id', 'id');
 	}
+
+	public function public_courses()
+	{
+		return $this->hasMany('App\Public_course', 'teacher_id', 'id');
+	}
 }

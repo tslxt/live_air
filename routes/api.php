@@ -41,6 +41,14 @@ Route::post('teachers', 'TeachersController@store')->middleware('auth:api');
 Route::post('teacher_register', 'TeachersController@register')->middleware('auth:api');
 Route::post('show', 'TeachersController@show')->middleware('auth:api');
 /*
+ * for public course
+*/
+Route::get('public_courses', 'PublicCoursesController@index');
+Route::get('public_course/{id}', 'PublicCoursesController@show');
+Route::post('public_courses', 'PublicCoursesController@store');
+Route::put('public_courses/{id}', 'PublicCoursesController@update');
+
+/*
  * for course
 */
 Route::get('courses', 'CoursesController@index');

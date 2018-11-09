@@ -44,7 +44,7 @@ class TeachersController extends Controller
     public function register(Request $request)
     {
         $user = Auth::user();
-        $user->update($request->all());
+        // $user->update($request->all());
         $teacher = new Teacher();
         $user->role = UserType::Teacher;
         $user->save();
