@@ -9,7 +9,10 @@ class Public_course extends Model
     protected $table = 'public_courses';
 
     protected $fillable = [
+    	'teacher_id',
     	'title',
+    	'image',
+    	'courseware',
     	'description',
     ];
 

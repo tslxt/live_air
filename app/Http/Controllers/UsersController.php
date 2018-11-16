@@ -67,7 +67,7 @@ class UsersController extends Controller
 
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
         $user = Auth::user();
         $user->update($request->all());

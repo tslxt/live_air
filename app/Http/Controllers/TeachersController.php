@@ -33,23 +33,26 @@ class TeachersController extends Controller
 
     public function show(Request $request)
     {
-        $user = Auth::user(); 
-        $teacher = new Teacher();
-        $teacher->name = $request->input('name');
-        $teacher->user_id = $user->id;
-        $teacher->save();
-        return response()->json($teacher, 201);
+        $user = Auth::user();
+
+        $teacher = Teacher::where('user_id', $user->id)->firstOrFail();
+        
+        return response()->json($teacher, 200);
     }
 
-    public function register(Request $request)
+    public function register()
     {
         $user = Auth::user();
-        // $user->update($request->all());
-        $teacher = new Teacher();
-        $user->role = UserType::Teacher;
-        $user->save();
-        $teacher->user_id = $user->id;
-        $teacher->save();
+        $teacher = $user->isTeacher;
+
+        if($teacher == null || $teacher == '') {
+            $teacher = new Teacher();
+            $user->role = UserType::Teacher;
+            $user->save();
+            $teacher->user_id = $user->id;
+            $teacher->save();
+        }
+                
         return response()->json($teacher, 200);
     }
 

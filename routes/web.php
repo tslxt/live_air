@@ -14,3 +14,4 @@
 Route::get('/', function () {
 	return 'live_air coming soon!';
 });
+Route::get('/live/{channel_id}', 'LivesController@show');

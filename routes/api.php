@@ -31,9 +31,14 @@ Route::post('loginCode', 'UsersController@loginCode');
 Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('details', 'UsersController@details');
 });
-Route::group(['middleware' => 'auth:api'], function(){
-	Route::put('update', 'UsersController@update');
-});
+// Route::group(['middleware' => 'auth:api'], function(){
+// 	Route::put('update', 'UsersController@update');
+// });
+/*
+ * for user
+ */
+Route::post('user_update', 'UsersController@update')->middleware('auth:api');
+
 /*
  * for teacher
  */
@@ -43,10 +48,12 @@ Route::post('show', 'TeachersController@show')->middleware('auth:api');
 /*
  * for public course
 */
-Route::get('public_courses', 'PublicCoursesController@index');
-Route::get('public_course/{id}', 'PublicCoursesController@show');
-Route::post('public_courses', 'PublicCoursesController@store');
-Route::put('public_courses/{id}', 'PublicCoursesController@update');
+Route::post('public_courses', 'PublicCoursesController@index')->middleware('auth:api');
+Route::post('public_course/{id}', 'PublicCoursesController@show')->middleware('auth:api');
+Route::post('public_course_create', 'PublicCoursesController@store')->middleware('auth:api');
+Route::post('public_course_update/{public_course}', 'PublicCoursesController@update')->middleware('auth:api');
+Route::post('public_course_delete/{public_course}', 'PublicCoursesController@delete')->middleware('auth:api');
+Route::post('public_course_upload_courseware/{public_course}', 'PublicCoursesController@upload')->middleware('auth:api');
 
 /*
  * for course

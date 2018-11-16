@@ -33,4 +33,8 @@ class User extends Authenticatable
         'birthday',
         'remember_token',
     ];
+
+    public function isTeacher() {
+        return $this->hasOne('App\Teacher', 'user_id', 'id');
+    }
 }
