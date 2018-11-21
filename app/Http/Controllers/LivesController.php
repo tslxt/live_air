@@ -10,6 +10,12 @@ class LivesController extends Controller
     {
     	$data = [];
     	$data['channel_id'] = $channel_id;
-    	return view('live/show', $data);
+    	return view('live/play', $data);
+    }
+
+    public function test()
+    {
+    	return view('live.test');
     }
 }
+

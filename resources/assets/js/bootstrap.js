@@ -54,3 +54,8 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/**
+ * We use js-cookie.js to control cookies.
+**/
+window.cookies = require('js-cookie');

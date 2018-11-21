@@ -15,3 +15,6 @@ Route::get('/', function () {
 	return 'live_air coming soon!';
 });
 Route::get('/live/{channel_id}', 'LivesController@show');
+
+// Route::get('/test', 'LivesController@test')->middleware('auth::api');
+Route::get('/test', 'LivesController@test');
