@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class LivesController extends Controller
 {
+
+    public function index()
+    {
+        return view('live.spa');
+    }
+
+
     public function show($channel_id)
     {
     	$data = [];

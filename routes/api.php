@@ -19,7 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /*
  *verify sms code
 */
-Route::post('verifysms', 'SmsVerifyController@verify');
+// Route::post('verifysms', 'SmsVerifyController@verify');
+Route::post('verifysms', 'UsersController@verifyCode');
 /*
  *for password
 */

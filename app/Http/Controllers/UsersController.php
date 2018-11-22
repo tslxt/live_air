@@ -48,6 +48,29 @@ class UsersController extends Controller
         return response()->json($token, 200);
     }
 
+    public function verifyCode(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'mobile'     => 'required|confirm_mobile_not_change|confirm_rule:mobile_required',
+            'verifyCode' => 'required|verify_code',
+        ]);
+        if ($validator->fails()) {
+           SmsManager::forgetState();
+           return response()->json($validator->errors(), 400);
+        }
+
+        $phone = $request->input('mobile');
+
+        $user = User::where('phone', $phone)->first();
+        if ($user) {
+            $token = $user->createToken('live_air')-> accessToken;
+        }else{
+            $user = User::create(['phone'=>$phone]);
+            $token = $user->createToken('live_air')-> accessToken;
+        }
+        return response()->json($token, 200);
+    }
+
     public function loginCode(Request $request)
     {
         $validator = Validator::make($request->all(), [

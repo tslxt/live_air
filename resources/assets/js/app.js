@@ -1,59 +1,91 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-window.Vue = require('vue');
+Vue.use(VueRouter)
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import App from './components/App'
+import Home from './components/Home'
+import Live from './components/Live'
+import Login from './components/Login'
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('send-code-field', require('./components/SendCodeField.vue'));
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/live/:course_id',
+            name: 'live',
+            component: Live
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+    ],
+});
 
 const app = new Vue({
     el: '#app',
+    components: { App },
+    router,
+    data : {
+        user: {
 
-    created: function () {
-    	var login = this.checkLogin();
-    	console.log(login);
-    	console.log()
+        },
+        course_id: null
     },
+    created: function () {
+        var login = this.checkLogin();
+        console.log(login);
+        console.log(this.$route.path);
+        console.log(this.$route.params);
+        this.course_id = this.$route.params.course_id;
+        if (login) {
+            console.log("login success!");
+        }else{
+            router.push('/login');
+        }
+    },
+
     methods:{
-    	checkLogin(){
-    		console.log("checkLogin");
-    		let token = cookies.get('token')
-    		if (token) {
-    			// const body = { a: 1 };
-    			fetch('/api/details', {
-    				method: 'post',
-    				// body:    JSON.stringify(body),
-    				headers: { 'Content-Type': 'application/json',
-    						'Accept':'application/json',
-    						'Authorization': 'Bearer ' + token,
-    					},
-    				})
-    				.then(this.checkStatus)
-    				.then(res => console.log('will not get here...'));
-    		}else{
-    			return false;
-    		}
-    	},
-    	checkStatus(res) {
-		    if (res.ok) { // res.status >= 200 && res.status < 300
-		    	console.log('ok');
-		        return res;
-		    } else {
-		        console.log(res.statusText);
-		    }
-		}
+        checkLogin(){
+            console.log("checkLogin");
+            let token = cookies.get('token')
+            if (token) {
+                // const body = { a: 1 };
+                fetch('/api/details', {
+                    method: 'post',
+                    // body:    JSON.stringify(body),
+                    headers: { 'Content-Type': 'application/json',
+                            'Accept':'application/json',
+                            'Authorization': 'Bearer ' + token,
+                        },
+                    })
+                    .then(this.checkStatus)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        this.user = data;
+                    });
+                    return true;
+            }else{
+                return false;
+            }
+        },
+        checkStatus(res) {
+            if (res.ok) { // res.status >= 200 && res.status < 300
+                console.log('ok');
+                return res;
+            } else {
+                console.log(res.statusText);
+            }
+        }
     }
 });

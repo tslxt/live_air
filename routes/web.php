@@ -11,10 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-	return 'live_air coming soon!';
-});
-Route::get('/live/{channel_id}', 'LivesController@show');
+Route::get('/', 'LivesController@index');
+Route::get('/live', 'LivesController@index');
+Route::get('/login', 'LivesController@index');
+Route::get('/live/{course_id}', 'LivesController@index');
+// Route::get('/live/{channel_id}', 'LivesController@show');
 
-// Route::get('/test', 'LivesController@test')->middleware('auth::api');
-Route::get('/test', 'LivesController@test');
+// // Route::get('/test', 'LivesController@test')->middleware('auth::api');
+// Route::get('/test', 'LivesController@test');
+
+// Route::get('/{any}', 'LivesController@index')->where('any', '.*');
