@@ -23,7 +23,7 @@
         props: [],
     	data () {
     		return {
-    			server: "127.0.0.1",
+    			server: "123.57.45.169",
                 port: 3014,
     			channel_id:null,
                 gateRoute : 'gate.gateHandler.queryEntry',
