@@ -109,6 +109,7 @@
                     host: this.server,
                     port: this.port,
                     log: true,
+                    scheme: 'wws',
             
                     }, () => {
                     console.log('success');
@@ -134,6 +135,7 @@
                     host: this.server,
                     port: this.port,
                     log: true,
+                    scheme: 'wws',
             
                     reconnect: true,
                     maxReconnectAttempts: 5, // 最大重连尝试次数
