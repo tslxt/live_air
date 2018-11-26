@@ -181,7 +181,7 @@
                 console.log('register receive events');
                 console.log(this.pomelo);
                 this.pomelo.on('onChat', function(data){
-                  // console.log('onChat',data);
+                  console.log('onChat',data);
                   // console.log(data.from, self.username, data.from === self.username);
                   if (data.from === self.username) {
                     return
