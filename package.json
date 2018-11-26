@@ -23,6 +23,9 @@
     },
     "dependencies": {
         "ajv": "^6.5.5",
-        "imagemin": "^6.0.0"
+        "imagemin": "^6.0.0",
+        "vue-beautiful-chat": "^2.1.0",
+        "vue-cropper": "^0.4.6",
+        "ws": "^6.1.2"
     }
 }

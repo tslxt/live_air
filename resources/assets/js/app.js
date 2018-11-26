@@ -1,14 +1,28 @@
 require('./bootstrap');
+const Pomelo = require('./PomeloClient');
+
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 
 Vue.use(VueRouter)
 
 import App from './components/App'
 import Home from './components/Home'
+import Navbar from './components/Navbar'
 import Live from './components/Live'
+import Chat from './components/Chat'
 import Login from './components/Login'
+import UserInfo from './components/UserInfo'
+import ChatBeautiful from 'vue-beautiful-chat'
+
+
+Vue.use(ChatBeautiful)
+
+import VueCropper  from 'vue-cropper'
+
+Vue.use(VueCropper)
 
 const router = new VueRouter({
     mode: 'history',
@@ -21,12 +35,21 @@ const router = new VueRouter({
         {
             path: '/live/:course_id',
             name: 'live',
-            component: Live
+            components: {
+                default: Live,
+                navbar: Navbar,
+                chat: Chat
+            }
         },
         {
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/userinfo',
+            name: 'userinfo',
+            component: UserInfo
         },
     ],
 });

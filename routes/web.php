@@ -14,6 +14,7 @@
 Route::get('/', 'LivesController@index');
 Route::get('/live', 'LivesController@index');
 Route::get('/login', 'LivesController@index');
+Route::get('/userinfo', 'LivesController@index');
 Route::get('/live/{course_id}', 'LivesController@index');
 // Route::get('/live/{channel_id}', 'LivesController@show');
 

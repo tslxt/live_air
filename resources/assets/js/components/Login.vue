@@ -1,8 +1,8 @@
 <template>
-    <div class="form-group">
+    <div class="form-group mt-5">
 
         <div class="form-group">
-            <h2 class="form-group">登录验证</h2>
+            <h2 class="form-group text-center">登录验证</h2>
         </div>
 
         <div class="form-group" :class="{'has-error': errorPhone}">
@@ -14,7 +14,7 @@
 
         <div class="col-md-4 mb-3">
             <button type="button" 
-                class="btn btn-block" 
+                class="btn btn-block btn-primary" 
                 :class="{disabled: counter !== 0}"
                 @click="sendCode">
                 发送验证码 
@@ -28,7 +28,7 @@
 
         <div class="col-md-4 mb-3">
             <button v-bind:disabled="!canSendCode" type="button" 
-                class="btn btn-block" 
+                class="btn btn-block btn-primary" 
                 @click="verifyCode">
                 验证
             </button>

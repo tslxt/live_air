@@ -1,17 +1,20 @@
 <template>
     <div>
-        <h1>方田直播课</h1>
-
-        <p>
-            <router-link :to="{ name: 'home' }">主页</router-link> |
-            <router-link :to="{ name: 'live' }">直播</router-link>
-        </p>
+        <router-view name="navbar"></router-view>
 
         <div class="container">
             <router-view></router-view>
+            <router-view name="chat"></router-view>
         </div>
     </div>
 </template>
 <script>
     export default {}
 </script>
+
+<style type="text/css">
+    .container {
+        margin: 0;
+        padding: 0;
+    }
+</style>
