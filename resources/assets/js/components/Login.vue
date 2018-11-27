@@ -135,7 +135,8 @@
 	                    .then(res => res.json())
 	                    .then(data => {
 	                        console.log(data);
-	                        cookies.set('token', data);
+	                        cookies.set('token', data.token);
+                            this.$root.user = data.user;
 	                        this.$router.go(-1);
 	                    })
 	                    .then(error => {

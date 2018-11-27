@@ -68,7 +68,10 @@ class UsersController extends Controller
             $user = User::create(['phone'=>$phone]);
             $token = $user->createToken('live_air')-> accessToken;
         }
-        return response()->json($token, 200);
+        $data = ['token' => $token,
+                 'user'  => $user,
+                ];
+        return response()->json($data, 200);
     }
 
     public function loginCode(Request $request)

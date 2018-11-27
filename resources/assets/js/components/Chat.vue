@@ -83,7 +83,6 @@
             console.log('Chat mounted');
             let course_id = this.$route.params.course_id;
             this.channel_id = course_id;
-            // setTimeout(this.checkInfo(), 1000);
             setTimeout( () => {
               console.log('setTimeout');
               this.checkInfo();
@@ -94,13 +93,21 @@
         },
         methods: {
           checkInfo () {
+            console.log('checkInfo', this.$root.pomeloState);
+            if (this.$root.pomeloState) {
+              this.connectServer();
+              return 
+            }
             if (this.$root.user.id) {
               this.username = this.$root.user.name || "未注册用户";
               this.connectServer();
             }else {
-              setTimeout( () => {
-                this.checkInfo();
-              }, 1000 );
+              if (!this.$root.pomeloState) {
+                  setTimeout( () => {
+                  this.checkInfo();
+                }, 1000 );
+              }
+              
             }
           },
         	connectServer () {
@@ -122,18 +129,18 @@
                             console.error('gate 连接失败');
                             return;
                         }
-                        this.server = data.host;
-                        this.port = data.port;
-                        console.log(this.server, this.port);
-                        this.enterChatRoom();
+                        let host = data.host;
+                        let port = data.port;
+                        console.log(host, port);
+                        this.enterChatRoom(host,port);
                     });
                 });
             },
-            enterChatRoom () {
+            enterChatRoom (host,port) {
                 console.log('enterChatRoom');
                 this.pomelo.init({
-                    host: this.server,
-                    port: this.port,
+                    host: host,
+                    port: port,
                     log: true,
                     scheme: 'wws',
             
@@ -157,6 +164,8 @@
                             console.error('gate 连接失败');
                             return;
                         }
+
+                        this.$root.pomeloState = true;
                         this.registerEvent();
                     });
                 });

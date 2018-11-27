@@ -62,6 +62,8 @@ const app = new Vue({
         user: {
 
         },
+        pomeloState: false,
+        hasVerify: false,
         course_id: null
     },
     created: function () {
@@ -108,7 +110,12 @@ const app = new Vue({
                 return res;
             } else {
                 console.log(res.statusText);
+                 this.MyCustomError(res.statusText);
             }
+        },
+        MyCustomError(text) {
+            console.log('thow', text);
+            router.push('/login');
         }
     }
 });

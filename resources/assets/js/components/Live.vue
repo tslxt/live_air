@@ -29,12 +29,10 @@
             console.log('Component mounted.');
             console.log(this.$route.params);
             let course_id = this.$route.params.course_id;
-            this.channel_id = this.server + course_id + "/index.m3u8"
+            this.channel_id = this.server + course_id + "/index.m3u8";
+            
         },
         method: {
-        	channelID () {
-        		return 2-1;
-        	}
         }
     }
 </script>
