@@ -22,3 +22,5 @@ Route::get('/live/{course_id}', 'LivesController@index');
 // Route::get('/test', 'LivesController@test');
 
 // Route::get('/{any}', 'LivesController@index')->where('any', '.*');
+
+Route::get('/test', 'LivesController@test');
