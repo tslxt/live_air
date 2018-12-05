@@ -3,35 +3,35 @@
 
         <div class="btn " @click="back">返回</div>
 
-        <div class="form-group">
-            <h2 class="form-group text-center">个人信息</h2>
-        </div>
-
-        <div class="form-group text-center">
-            <img :src="profileImageUrl">
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-4">
-                <label class="exampleForPhone">您的注册手机号码是：{{$root.user.phone}}</label>
-                <input id="inputHelpBlock" type="text" class="form-control" aria-describedby="helpBlock" v-model="username" placeholder="您的名字">
+        <form v-on:submit.prevent="updateUserInfo">
+            <div class="form-group">
+                <h2 class="form-group text-center">个人信息</h2>
             </div>
-            
-        </div>
 
-        <div class="col-md-4 mb-3">
-            <button  type="button" 
-                class="btn btn-block btn-primary" 
-                @click="updateUserInfo">
-                更新个人信息
-            </button>
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <div v-if="hasVerifyMessage" class="alert alert-warning" role="alert">
-            	{{ verifyMessage }}
+            <div class="form-group text-center">
+                <img v-bind:src="imageSrc">
             </div>
-        </div>
+
+            <div class="form-group">
+                <div class="colmd-4">
+                    <label class="exampleForPhone">您的注册手机号码是：{{currentUser.phone}}</label>
+                    <input id="inputHelpBlock" type="text" class="form-control" aria-describedby="helpBlock" v-model="username" placeholder="您的名字">
+                </div>
+                
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="更新个人资料" class="btn btn-block btn-primary">
+            </div>
+
+            <div class="form-group">
+                <div v-if="hasVerifyMessage" class="alert alert-warning" role="alert">
+                    {{ verifyMessage }}
+                </div>
+            </div>
+        </form>
+
+        
         
     </div>
 </template>
@@ -41,18 +41,30 @@
         props: [],
         data () {
             return {
-                username: this.$root.user.name,
-                phone: this.$root.user.phone,
                 hasVerifyMessage: false,
                 verifyMessage: "您忘记输入您的名字了",
-                profileImageUrl: "/storage/appIcons/profile.jpg",
             }
         },
         computed: {
+            currentUser() {
+				return this.$store.getters.currentUser;
+            },
+            username: {
+                get () {
+                    return this.currentUser.name;
+                },
+                set (value) {
+                    this.$store.commit('updateUser', {name: value});
+                }
+            },
+            imageSrc: {
+                get () {
+                    return this.currentUser.image || "/storage/appIcons/profile.jpg";
+                }
+            }
         },
         mounted() {
             console.log('userinfo mounted');
-            console.log(this.$root.user)
         },
         methods: {
             back () {

@@ -43,8 +43,10 @@
     </div>
 </template>
 <script>
+    import {login} from '../helpers/auth';
+    import {sendSms} from '../helpers/auth';
     export default{
-        name: 'sendCodeField',
+        name: 'login',
         props: [],
         data () {
             return {
@@ -84,33 +86,20 @@
                     return
                 }
 
-                var self = this
-
                 const body = { mobile: this.phone };
+
+                sendSms(body)
+                    .then((res) => {
+                        this.canSendCode = true;
+                        this.hasVerifyMessage = true;
+	                    this.verifyMessage = '验证码已经发送，请注意查收';
+                    })
+                    .catch((error) => {
+                        this.$store.commit('loginFailed', {error});
+                        this.hasVerifyMessage = true;
+	                    this.verifyMessage = '验证码发送失败';
+                    });
                 
-                fetch('/laravel-sms/verify-code', {
-                	method: 'post',
-                	body:    JSON.stringify(body),
-                	headers: { 'Content-Type': 'application/json' },
-                	})
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data.success) {
-                        	console.log(data.success);
-                        	console.log(data.message);
-                        	this.hasVerifyMessage = true;
-                			this.verifyMessage = data.message;
-                			self.startCount();
-                			self.canSendCode = true;
-                        }else{
-                        	this.hasVerifyMessage = true;
-                			this.verifyMessage = data.message;
-                        }
-                    })
-                    .then(error => {
-                        console.log(error);
-                    })
             },
             verifyCode () {
                 if (this.code == null || this.code.length != 6) {
@@ -125,37 +114,20 @@
 	                const body = { mobile: this.phone, verifyCode: this.code };
 
 	                console.log(body);
-	                
-	                fetch('/api/verifysms', {
-	                	method: 'post',
-	                	body:    JSON.stringify(body),
-	                	headers: { 'Content-Type': 'application/json' },
-	                	})
-	                	.then(this.checkStatus)
-	                    .then(res => res.json())
-	                    .then(data => {
-	                        console.log(data);
-	                        cookies.set('token', data.token);
-                            this.$root.user = data.user;
-	                        this.$router.go(-1);
-	                    })
-	                    .then(error => {
-	                        console.log(error);
-	                    })
+                    
+                    login(body)
+                        .then((res) => {
+                            this.$store.commit("loginSuccess", res);
+                            this.$router.back();
+                        })
+                        .catch((error) => {
+                            this.$store.commit("loginFailed", {error});
+                            this.hasVerifyMessage = true;
+	                        this.verifyMessage = '登录验证失败';
+                        });
+                    
 	            }
             },
-            checkStatus(res) {
-			    if (res.ok) { // res.status >= 200 && res.status < 300
-			    	console.log('ok');
-			    	this.hasVerifyMessage = true;
-	                this.verifyMessage = '验证成功';
-			        return res;
-			    } else {
-			        console.log(res);
-			        this.hasVerifyMessage = true;
-	                this.verifyMessage = '验证失败';
-			    }
-			},
             checkPhone: function (phone) {
                 return !!phone.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/)
             },
