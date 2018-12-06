@@ -4,7 +4,7 @@
 		    <div class="bg-dark p-4">
 		      <div class="card">
 						<div class="text-center mt-3">
-							<img v-bind:src="currentUser.image||'/storage/appIcons/profile.jpg'">
+							<img class="rounded-circle" v-bind:src="currentUser.image||'/storage/appIcons/profile.jpg'">
 						</div>
 				  
 				  <div class="card-body">
@@ -90,12 +90,12 @@
 </script>
 
 <style scoped>
-	img {
-		border-radius: 100px;
-	}
 
 	.navbar-toggler {
 	 	border: 0;
 	 	border-radius: 0;
+	}
+	.navbar {
+		padding: 0; 
 	}
 </style>

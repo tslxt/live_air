@@ -1,4 +1,5 @@
 require('./bootstrap');
+const Pomelo = require('./PomeloClient');
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
