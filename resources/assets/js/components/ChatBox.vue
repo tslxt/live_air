@@ -62,6 +62,12 @@
             let course_id = this.$route.params.course_id;
             this.channel_id = course_id;
 
+            this.$el.querySelector('#input-box').addEventListener('blur', function () {
+                setTimeout(function () {
+                    window.scrollTo(0, 0)
+                }, 100)
+            });
+
             this.connectServer();
         },
         methods: {
@@ -71,6 +77,7 @@
                     // this.messages.push(this.newMessage);
                     // this.scrollToEnd();
                     this.sendOneMessage(this.newMessage);
+                    window.scrollTo(0, 0);
                     this.newMessage = null;
                 }
                 
